@@ -14,11 +14,10 @@
     'depends': ['account', 'mail', 'sms', 'account_reports', 'base', 'hr_payroll', 'sale_management', 'sale_subscription',
                 ],
     'data': [ 	'security/ir.model.access.csv',
-    		    'views/res_partner_cus.xml',
                 'wizard/auxillary_package.xml',
                 'wizard/upgrade_downgrade.xml',
                 'views/due_subscription_form.xml',
-            	'views/due_sale_order_form.xml',
+            	
             ],
     'qweb': [
         "static/src/xml/account_reconciliation.xml",
