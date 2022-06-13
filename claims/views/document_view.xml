@@ -1,0 +1,17 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="claim_search_Document_view">
+            <field name="name">Claim Search Document View</field>
+            <field name="model">documents.document</field>
+            <field name="inherit_id" ref="documents.document_view_search"/>
+            <field name="priority" eval="99"/>
+            <field name="arch" type="xml">
+                 <xpath expr="//field[@name='owner_id']" position="after">
+                    <field name="claim_id"/>
+                  </xpath>
+
+                </field>
+        </record>
+                
+    </data>
+</odoo>
