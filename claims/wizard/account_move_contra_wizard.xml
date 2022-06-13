@@ -1,0 +1,34 @@
+<odoo>
+    <record model="ir.ui.view" id="account_move_contra_wizard">
+        <field name="name">wizard.form</field>
+        <field name="model">account.move.contra.wizard</field>
+        <field name="arch" type="xml">
+        <form string="Claims Offset Wizard">
+                <group>
+                    <group>
+                        <field name="date"/>
+                        <field name="member"/>
+                        <field name="amount"/>
+                        <field name="claim_numbers"/>
+                    </group>
+                    <group>
+                    </group>
+                </group>
+
+                <footer>
+                    <button name="proceed" type="object"
+                            string="Proceed"/>
+                    <button special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+        <record model="ir.actions.act_window" id="account_move_contra_wizard_action">
+        <field name="name">Contra Wizard</field>
+        <field name="res_model">account.move.contra.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="account_move_contra_wizard"/>
+        <field name="target">new</field>
+    </record>
+</odoo>
