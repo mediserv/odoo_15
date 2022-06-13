@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates id="template" xml:space="preserve">
+     <t t-inherit="account_accountant.reconciliation.line.mv_line" t-inherit-mode="extension">
+         <xpath expr="//tr[1]" position="replace">
+             <tr t-if="line.display !== false" t-attf-class="mv_line #{line.is_liquidity_line ? ' already_reconciled' : ''} #{line.__invalid ? 'invalid' : ''} #{line.is_tax ? 'is_tax' : ''}" t-att-data-line-id="line.id" t-att-data-selected="selected">
+        <td class="cell_account_code"><t t-esc="line.account_code"/>&#8203;</td> <!-- zero width space to make empty lines the height of the text -->
+        <td class="cell_due_date" style="white-space:nowrap">
+            <t t-if="typeof(line.id) != 'number' &amp;&amp; line.id">
+                <span class="badge badge-secondary">New</span>
+            </t>
+            <t t-else="" t-esc="line.date_maturity || line.date"/>
+        </td>
+        <td class="cell_label">
+            <t t-if="line.partner_id &amp;&amp; line.partner_id !== state.st_line.partner_id">
+                <t t-if="line.partner_name.length">
+                    <span class="font-weight-bold" t-esc="line.partner_name"/>:
+                </t>
+            </t>
+            <t t-esc="line.name"/>
+            <t t-if="line.ref &amp;&amp; line.ref.length"> : </t>
+            <t t-esc="line.ref"/>
+        </td>
+        <td class="cell_left">
+            <t t-if="line.amount &lt; 0">
+                <t t-call="reconciliation.line.mv_line.amount"/>
+            </t>
+        </td>
+        <td class="cell_right">
+            <t t-if="line.amount &gt; 0">
+                <t t-call="reconciliation.line.mv_line.amount"/>
+            </t>
+        </td>
+        <td class="cell_info_popover"></td>
+    </tr>
+         </xpath>
+        </t>
+</templates>
