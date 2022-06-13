@@ -1,0 +1,49 @@
+<odoo>
+    <record model="ir.ui.view" id="upgrade_downgrade">
+        <field name="name">upgrade.downgrade</field>
+        <field name="model">upgrade.downgrade</field>
+        <field name="arch" type="xml">
+        <form string="Upgrade \ Downgrade">
+               
+                <group>
+                <group>
+                    <field name="new_commencement_date"/>
+                </group>
+                </group>                
+                    <field name="sub_list_product_ids" nolabel="1">
+                        <tree string="Renewable" create="0" editable="bottom">
+                            <field name="name" readonly="1"/>
+                            <field name="commencement_date" readonly="1"/>
+                            <field name="covered_member_name"/>
+                            <field name="quantity" readonly="1"/>
+                            <field name="downgrade_plan"/>
+                            <field name="product_id" invisible="1"/>
+                        </tree>
+                    </field>
+                    <field name="upgrade_line_ids" nolabel="1">
+                        <tree string="Options" create="1" editable="bottom">
+                            <field name="product_id" domain="[('recurring_invoice', '=', True)]"
+                                   context="{'default_recurring_invoice': True}"/>
+                            <field name="name" invisible="1"/>
+                            <field name="quantity" readonly="0"/>
+                            <field name="product_uom_category_id" invisible="1"/>
+                            <field name="uom_id" groups="uom.group_uom"/>
+                        </tree>
+                    </field>
+                <footer>
+                    <button name="create_downgrade_upgrade_order" type="object"
+                            string="Upgrade / Downgrade" class="oe_highlight"/>
+                    <button special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+        <record model="ir.actions.act_window" id="upgrade_downgrade_action">
+        <field name="name">Upgrade Downgrade</field>
+        <field name="res_model">upgrade.downgrade</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="upgrade_downgrade"/>
+        <field name="target">new</field>
+    </record>
+</odoo>
