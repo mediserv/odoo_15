@@ -1,0 +1,26 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="due_subscription_form">
+            <field name="name">due.subscription.form</field>
+            <field name="model">sale.subscription</field>
+            <field name="inherit_id" ref="sale_subscription.sale_subscription_view_form"/>
+            <field name="priority" eval="99"/>
+            <field name="arch" type="xml">
+                <xpath expr="/form/header/button[6]" position="after">
+                    <button string="Upgrade / Downgrade" name="%(upgrade_downgrade_action)d" type="action" attrs="{'invisible': [('stage_category', '!=', 'progress')]}"/>
+                
+                </xpath>
+                 <xpath expr="/form/sheet/div[2]" position="after">
+                     <field name="to_upgrade" invisible="1"/>
+                     <div class="badge-pill badge-warning float-right" attrs="{'invisible': [('to_upgrade', '=', False)]}">Upgrade in Progress</div>
+                    
+                
+                </xpath>
+                
+                
+
+                </field>
+        </record>
+                
+    </data>
+</odoo>

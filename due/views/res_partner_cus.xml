@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="vip_partner_view_form">
+            <field name="name">vip.partner.view.form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="priority" eval="12"/>
+            <field name="arch" type="xml">
+    
+  
+    <xpath expr="//form[1]/sheet[1]/group[1]/group[1]/field[@name='vat']" position="after">
+    <field name="x_studio_customer_type" string="Customer Type" attrs="{}" required="1" help="test"/>
+    <field name="x_studio_member_status" string="Member status" attrs="{&quot;required&quot;: [[&quot;x_studio_customer_type&quot;,&quot;=&quot;,&quot;1&quot;]], &quot;invisible&quot;: [[&quot;x_studio_customer_type&quot;,&quot;=&quot;,&quot;0&quot;]]}"/>
+    <field name="create_date"/>
+    <field name="has_unreconciled_entries"/>
+    <field name="last_time_entries_checked" attrs="{}"/>
+    <field name="x_studio_field_0JitI" string="Payment Type" attrs="{&quot;required&quot;: [[&quot;x_studio_customer_type&quot;,&quot;=&quot;,&quot;1&quot;]]}"/>
+    <field name="write_uid"/>
+    <field name="write_date"/>
+  </xpath>
+  <xpath expr="//field[@name='category_id']" position="after">
+    <field name="x_studio_upgraded" string="Upgraded"/>
+    <field name="x_studio_validated" string="Validated"/>
+    <field name="x_studio_to_call" string="To Call"/>
+    <field name="x_studio_member_has_standing_order" string="Member has Standing Order"/>
+  </xpath>
+  <xpath expr="//form[1]/sheet[1]/notebook[1]/page[1]/field[@name='child_ids']/form[1]" position="after">
+    <tree string="Contacts">
+      <field name="display_name" string="Name"/>
+      <field name="function" invisible="1"/>
+      <field name="phone" class="o_force_ltr" optional="show"/>
+      <field name="email" optional="show"/>
+      <field name="company_id" groups="base.group_multi_company"/>
+      <field name="city" optional="hide"/>
+      <field name="state_id" optional="hide"/>
+      <field name="country_id" optional="hide"/>
+      <field name="vat" optional="hide"/>
+      <field name="user_id" invisible="1"/>
+      <field name="is_company" invisible="1"/>
+      <field name="parent_id" invisible="1"/>
+      <field name="active" invisible="1"/>
+    </tree>
+  </xpath>
+        <page name="contact_addresses" position="before">
+        <page name="studio_page_GbRS2" string="VIP Member Info" autofocus="autofocus">
+      <group name="studio_group_GbRS2">
+        <group name="studio_group_GbRS2_left">
+          <field name="x_studio_ran_number_1" string="Ran Number" force_save="True" attrs="{}"/>
+          <field name="x_principal_id"/>
+          <field name="x_studio_commencement_date" string="Commencement Date"/>
+          <field name="x_studio_member_state" string="Member State"/>
+          <field name="x_studio_sponsors_ran_number_1" string="Sponsor's Ran  number+"/>
+          <field name="x_studio_principal_ran" string="Parent Ran"/>
+          <field name="x_studio_first_name" string="First Name" widget="char"/>
+          <field name="x_studio_last_name" string="Last Name"/>
+          <field name="x_studio_other_names" string="Other Names"/>
+          <field name="x_studio_marital_status" string="Marital Status"/>
+          <field name="x_studio_phone_number_3_1" string="Phone Number 3+" widget="phone"/>
+          <field name="x_studio_phone_number_4_1" string="Phone Number 4+" widget="phone"/>
+          <field name="x_studio_gender" string="Gender"/>
+          <field name="x_studio_date_of_birth" string="Date of Birth"/>
+          <field name="x_studio_drivers_permit" string="Driver's Permit"/>
+          <field name="x_studio_id_card_1" string="ID Card+"/>
+          <field name="x_studio_pass_port" string="Pass Port"/>
+          <field name="x_studio_religion" string="religion"/>
+          <field name="x_studio_emergency_contact" string="Emergency Contact"/>
+          <field name="x_studio_emergency_contact_number_1" string="Emergency Contact number+" widget="phone"/>
+          <field name="x_studio_emergency_contact_number_2_1" string="Emergency Contact number 2+" widget="phone"/>
+          <field name="x_studio_emergency_contact_relationship" string="Emergency Contact Relationship"/>
+        </group>
+        <group name="studio_group_GbRS2_right">
+          <field name="x_studio_beneficiary" string="Beneficiary"/>
+          <field name="x_studio_beneficiary_relationship" string="Relationship"/>
+          <field name="x_studio_beneficiary_address" string="Beneficiary Address"/>
+          <field name="x_studio_beneficiary_address_city" string="City1"/>
+          <field name="x_studio_beneficiary_address_country" string="Country1"/>
+          <field name="x_studio_date_employed" string="Date Employed"/>
+          <field name="x_studio_employer_name" string="Employer Name"/>
+          <field name="x_studio_employment_status" string="Employment Status"/>
+          <field name="x_studio_pay_mode" string="Pay Mode"/>
+          <field name="x_studio_employer_number_1" string="Employer Number+" widget="phone"/>
+          <field name="x_studio_field_rYlZg" string="Employer Address1"/>
+          <field name="x_studio_employer_address_city" string=" City2"/>
+          <field name="x_studio_employer_address_country" string="Country2"/>
+          <field name="x_studio_occupation" string="Occupation"/>
+          <field name="x_studio_other_skill" string="Other Skill"/>
+        </group>
+          <field name="x_dependent_id" string="Dependent" />
+      </group>
+        </page>
+    <page name="studio_page_Afr6u" string="Medical Information">
+      <group name="studio_group_Afr6u">
+        <group name="studio_group_Afr6u_left">
+          <field name="x_studio_family_doctor_name" string="Family Doctor Name"/>
+          <field name="x_studio_family_doctor_contact_1" string="Family Doctor Contact 1+" widget="phone"/>
+          <field name="x_studio_family_doctor_contact_3" string="Family Doctor Contact 2+"/>
+          <field name="x_studio_blood_type" string="Blood Type"/>
+          <field name="x_studio_blood_transfusion" string="Blood Transfusion"/>
+          <field name="x_studio_surgery" string="surgery"/>
+        </group>
+        <group name="studio_group_Afr6u_right">
+          <field name="x_studio_medical_history" string="Medical History"/>
+        </group>
+      </group>
+    </page>
+    <page name="studio_page_XoGQb" string="Plan Infomation">
+      <group name="studio_group_XoGQb">
+        <group name="studio_group_XoGQb_left">
+          <field name="x_studio_base_plan_code" string="Base Plan Code"/>
+          <field name="x_studio_plan_type" string="Plan Type"/>
+          <field name="x_studio_enhancement" string="Enhancement"/>
+        </group>
+        <group name="studio_group_XoGQb_right"/>
+      </group>
+    </page>
+    </page>
+    
+</field>
+    </record>        
+        <record id="vip_payments" model="ir.ui.view">
+            <field name="name">vip.payments</field>
+            <field name="model">account.payment</field>
+            <field name="inherit_id" ref="account.view_account_payment_form"/>
+            <field name="priority" eval="99"/>
+            <field name="arch" type="xml">
+                
+     <xpath expr="//field[@name='company_id']" position="after">
+    <field name="x_is_employee"/>
+    <field name="x_employee_id" attrs="{&quot;invisible&quot;: [[&quot;x_is_employee&quot;,&quot;=&quot;,False]], &quot;required&quot;: [[&quot;x_is_employee&quot;,&quot;=&quot;,True]]}"/>
+    <field name="x_is_endorsement"/>
+    <field name="x_endorsement_id" attrs="{&quot;required&quot;: [[&quot;x_is_endorsement&quot;,&quot;=&quot;,True]], &quot;invisible&quot;: [[&quot;x_is_endorsement&quot;,&quot;=&quot;,False]]}"/>
+  </xpath>
+    <xpath expr="//field[@name='payment_method_id']" position="after">
+        <field name="x_studio_date_on_cheque" attrs='{"invisible": [["payment_method_id","!=",12]], "readonly": [["state","!=","draft"]], "required": [["payment_method_id","=",12]]}'/>
+        </xpath>
+     <xpath expr="//field[@name='partner_bank_id']" position="after">
+        <field name="x_suspended_payment" attrs='{"readonly": [["state","!=","draft"]]}'/>
+        </xpath>
+        <xpath expr="//field[@name='ref']" position="attributes">
+        <attribute name="attrs">{}</attribute>
+        <attribute name="required">1</attribute>
+      </xpath>
+        </field>
+        </record>
+        <record id="coverage_period" model="ir.ui.view">
+            <field name="name">coverage.period</field>
+            <field name="inherit_id" ref="account.report_invoice_document"/>
+            <field name="priority" eval="99"/>
+            <field name="arch" type="xml">
+          
+            <xpath expr="/t/t/div/div[1]" position="replace">
+                 <div id="informations" class="row mt32 mb32">
+                        <div class="col-auto mw-100 mb-2">
+                            <strong>Coverage Period:</strong>
+                            <p class="m-0"> <span t-field="o.x_Coverage_StartDate"/> — <span t-field="o.x_Coverage_Enddate"/> </p>
+                        </div>
+                      <div class="col-auto mw-100 mb-2" t-if="o.invoice_date" name="invoice_date">
+                            <strong>Invoice Issue Date:</strong>
+                            <p class="m-0" t-field="o.invoice_date"/>
+                        </div>
+                        <div class="col-auto mw-100 mb-2" t-if="o.invoice_date_due and o.move_type == 'out_invoice' and o.state == 'posted'" name="due_date">
+                            <strong>Due Date:</strong>
+                            <p class="m-0" t-field="o.invoice_date_due"/>
+                        </div>
+                        <div class="col-auto mw-100 mb-2" t-if="o.partner_id.ref" name="customer_code">
+                            <strong>Customer Code:</strong>
+                            <p class="m-0" t-field="o.partner_id.ref"/>
+                        </div>
+                        <div class="col-auto mw-100 mb-2" t-if="o.ref" name="reference">
+                            <strong>Reference:</strong>
+                            <p class="m-0" t-field="o.ref"/>
+                        </div>
+                                       </div>
+                </xpath>
+            </field>
+        </record>
+         <record id="coverage_period_receipt" model="ir.ui.view">
+            <field name="name">coverage.period.receipt</field>
+            <field name="inherit_id" ref="account.report_payment_receipt_document"/>
+            <field name="priority" eval="99"/>
+            <field name="arch" type="xml">
+        
+      <xpath expr="/t/t/div/table/thead/tr" position="replace">
+                            <tr>
+                            <th><span>Coverage <br/>Period</span></th>
+                            <th><span>Invoice Date</span></th>
+                            <th><span>Invoice Number</span></th>
+                            <th><span>Reference</span></th>
+                            <th class="text-right"><span>Original Amount</span></th>
+                            <th class="text-right"><span>Amount Paid</span></th>
+                            <th class="text-right"><span>Balance</span></th>
+        </tr>
+        </xpath>
+        <xpath expr="/t/t/div/table/tbody/tr" position="replace">
+        <tr t-foreach="o.move_id._get_reconciled_invoices_partials()" t-as="rec">
+            <t t-set="amount" t-value="rec[1]"/>
+            <t t-set="inv" t-value="rec[2].move_id"/>
+                            <td><span t-field="inv.x_Coverage_StartDate"/> — <span t-field="inv.x_Coverage_Enddate"/></td>
+                            <td><span t-field="inv.invoice_date"/></td>
+                            <td><span t-field="inv.name"/></td>
+                            <td><span t-field="inv.ref"/></td>
+                            <td class="text-right"><span t-field="inv.amount_total"/></td>
+                            <td class="text-right"><span t-esc="amount" t-options="{'widget': 'monetary', 'display_currency': inv.currency_id}"/></td>
+                            <td class="text-right"><span t-field="inv.amount_residual"/></td>
+                        </tr>
+        </xpath>
+             </field>
+        </record>
+         <record id="vip_letterhead" model="ir.ui.view">
+            <field name="name">vip.letterhead</field>
+            <field name="inherit_id" ref="web.external_layout_standard"/>
+            <field name="priority" eval="99"/>
+            <field name="arch" type="xml">
+           <xpath expr="/t/div[1]" position="replace">     
+        <div t-attf-class="header o_company_#{company.id}_layout" t-att-style="report_header_style">
+               <div class="row">
+                <div class="col-center">
+                    <img src="https://erp.mediservinternational.com/document/download/5/107ed008-89d2-4eaf-b418-2c250cf913bf/3" style="width:1035px;height:189px;"/>
+                </div>
+                <div class="col-9 text-right" style="margin-top:22px;" t-field="company.report_header" name="moto"/>
+            </div>
+            <div t-if="company.logo or company.report_header" class="row zero_min_height">
+                <div class="col-12">
+                </div>
+                </div>
+            </div>
+                </xpath>
+               </field>
+        </record>
+                
+    </data>
+</odoo>

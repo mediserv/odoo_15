@@ -1,0 +1,81 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="due_sale_order_form">
+            <field name="name">due.sale.order.form</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="priority" eval="99"/>
+            <field name="arch" type="xml">
+                
+                <xpath expr="/form/header/button[11]" position="after">
+                    <button name="action_riskreserve" type="object" string="Add Risk Reserve" attrs="{'invisible': ['|', ('state', 'not in', ['draft', 'sent','sale']), ('id', '=', False)]}"/>
+                    <button name="action_reinstatementfee" type="object" string="Reinstament Fund/Fee" attrs="{'invisible': ['|', ('state', 'not in', ['draft', 'sent','sale']), ('id', '=', False)]}"/>
+                    <button name="%(upgrade_downgrade_action)d" type="action" string="Axillary Packages" attrs="{'invisible': ['|', ('state', 'not in', ['draft', 'sent','sale']), ('id', '=', False)]}"/>
+                    <button name="create_invoice_update_subscription" type="object" string="Test" attrs="{'invisible': ['|', ('state', 'not in', ['draft', 'sent','sale']), ('id', '=', False)]}"/>
+                    </xpath>
+
+
+<xpath expr="//field[@name='payment_term_id']" position="after">
+    <field name="x_commencement_date" attrs="{&quot;readonly&quot;: [[&quot;state&quot;,&quot;not in&quot;,[&quot;draft&quot;,&quot;sent&quot;]]]}"/>
+    <field name="x_family_type" attrs="{&quot;readonly&quot;: [[&quot;state&quot;,&quot;not in&quot;,[&quot;draft&quot;,&quot;sent&quot;]]]}"/>
+    <field name="x_studio_payment_mode" domain="[&quot;|&quot;,[&quot;id&quot;,&quot;=&quot;,3],[&quot;id&quot;,&quot;=&quot;,6]]" attrs="{&quot;readonly&quot;: [[&quot;state&quot;,&quot;not in&quot;,[&quot;draft&quot;,&quot;sent&quot;]]]}"/>
+  </xpath>
+  <xpath expr="//form[1]/sheet[1]/notebook[1]/page[@name='order_lines']/field[@name='order_line']/form[1]/div[@name='invoice_lines']/field[@name='invoice_lines']" position="inside">
+    <tree string="Journal Items" create="false" expand="context.get('expand', False)" multi_edit="1" js_class="account_move_line_list">
+      <field name="date" optional="show" readonly="1"/>
+      <field name="company_id" groups="base.group_multi_company" options="{'no_create': True}" optional="show"/>
+      <field name="move_id" optional="show"/>
+      <field name="account_id" optional="show" options="{'no_open': True, 'no_create': True}" domain="[('company_id', '=', company_id)]" groups="account.group_account_readonly"/>
+      <field name="statement_id" invisible="1"/>
+      <field name="partner_id" optional="show" readonly="1"/>
+      <field name="ref" optional="hide"/>
+      <field name="name"/>
+      <field name="reconciled" invisible="1"/>
+      <field name="matching_number" string="Matching" optional="show"/>
+      <field name="reconcile_model_id" invisible="1"/>
+      <field name="date_maturity" optional="hide"/>
+      <field name="analytic_account_id" optional="hide" groups="analytic.group_analytic_accounting" attrs="{'readonly':[('parent_state','=','posted')]}"/>
+      <field name="analytic_tag_ids" optional="hide" readonly="1" groups="analytic.group_analytic_tags"/>
+      <field name="debit" sum="Total Debit" readonly="1"/>
+      <field name="credit" sum="Total Credit" readonly="1"/>
+      <field name="balance" sum="Total Balance" readonly="1" optional="hide"/>
+      <field name="amount_currency" readonly="1" groups="base.group_multi_currency"/>
+      <field name="currency_id" readonly="1" groups="base.group_multi_currency" optional="hide" string="Original Currency"/>
+      <field name="company_currency_id" invisible="1"/>
+      <field name="parent_state" invisible="1"/>
+      <field name="tax_ids" widget="many2many_tags" width="0.5" optional="hide" readonly="1"/>
+      <field name="tax_tag_ids" widget="many2many_tags" width="0.5" optional="hide" string="Tax Grids" options="{'no_open': True, 'no_create': True}" domain="[('applicability', '=', 'taxes')]"/>
+      <groupby name="move_id">
+        <field name="state" invisible="1"/>
+        <button name="edit" type="edit" icon="fa-edit" title="Edit"/>
+        <button name="action_post" states="draft" icon="fa-check" title="Post" type="object" groups="account.group_account_invoice"/>
+        <button name="178" states="posted" title="Reverse" icon="fa-refresh" type="action" groups="account.group_account_invoice"/>
+        <button name="action_duplicate" icon="fa-files-o" title="Duplicate" type="object" groups="account.group_account_invoice"/>
+      </groupby>
+      <header>
+        <button name="action_reconcile" type="object" string="Reconcile" groups="account.group_account_user"/>
+        <button name="turn_as_asset" type="object" string="Create Asset" groups="account.group_account_user"/>
+      </header>
+      <field name="move_attachment_ids" invisible="1">
+        <tree>
+          <field name="mimetype"/>
+          <!--  We want to fetch the data for using it in the js-->
+        </tree>
+      </field>
+    </tree>
+  </xpath>
+  <xpath expr="//form[1]/sheet[1]/notebook[1]/page[@name='order_lines']/field[@name='order_line']/tree[1]/field[@name='product_id']" position="attributes">
+    <attribute name="domain">[('sale_ok', '=', True),('subscription_template_id', '=', x_order_payment_mode),'|',('x_studio_service_type', '=', 'Enhancements'),('x_studio_family_status', '=', x_family_type), '|', ('company_id', '=', False), ('company_id', '=', parent.company_id)]</attribute>
+  </xpath>
+  <xpath expr="//form[1]/sheet[1]/notebook[1]/page[@name='order_lines']/field[@name='order_line']/tree[1]/field[@name='name']" position="after">
+    <field name="x_commencement_date"/>
+    <field name="x_covered_member" domain="[('x_principal_id', '=',order_partner_id)]"/>
+    <field name="x_order_payment_mode" attrs="{}" invisible="1"/>
+    <field name="x_family_type" attrs="{}" invisible="1"/>
+    <field name="order_partner_id" attrs="{}" invisible="1"/>
+  </xpath>
+                </field>
+        </record>
+                
+    </data>
+</odoo>
